@@ -16,11 +16,13 @@ function handleFormSubmit(e) {
   // console.log(e)
   const task = e.target["new-task-description"].value
   // console.log(task)
+  const priorityLevel = parseInt(e.target.priority.value)
+  // console.log(priorityLevel)
 
-  displayTask(task)
+  displayTask(task, priorityLevel)
 }
 
-function displayTask(task) {
+function displayTask(task, priorityLevel) {
   const taskUl = document.getElementById("tasks")
   // console.log(taskUl)
   const taskLi = document.createElement("li")
@@ -30,8 +32,9 @@ function displayTask(task) {
   deleteBtn.addEventListener("click", deleteTask)
 
   taskLi.textContent = task + " "
-  // above code + " " adds a space between task and button
+  // in the above code + " " adds a space between task and button
   // console.log(taskLi)
+  taskLi.style.color = getPriorityColor(priorityLevel)
   taskLi.appendChild(deleteBtn)
   taskUl.appendChild(taskLi)
 }
@@ -39,4 +42,15 @@ function displayTask(task) {
 function deleteTask(e) {
   // console.log(e)
   e.target.parentNode.remove()
+}
+
+function getPriorityColor(priorityLevel) {
+  // console.log(priorityLevel)
+  if (priorityLevel === 1) {
+    return "red"
+  } else if (priorityLevel === 2) {
+    return "blue"
+  } else {
+      return "green"
+  }
 }
